@@ -12,7 +12,7 @@ ball_light_GPIO = 27
 color_white_toggle_GPIO = 22
 dimmer_GPIO = 23
 
-loop
+loop = None
 
 GPIO.setwarnings(False)
 
