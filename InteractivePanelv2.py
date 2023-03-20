@@ -74,7 +74,7 @@ def changeColorOrDimFunc():
 
 while True:
     if GPIO.input(desk_light_GPIO) == False:
-        deskPowerFunc()
+        asyncio.run(deskPow())
 
     if GPIO.input(ball_light_GPIO) == False:
         roomPowerFunc()
