@@ -32,7 +32,7 @@ colorProfiles = [[0,0,255], [0,255,0], [255,0,0]]
 brightness = 255
 
 async def deskPow():
-    loop.call_soon_threadsafe( desk.lightSwitch())
+    await desk.lightSwitch()
 
 async def deskColor():
     await  desk.turn_on(PilotBuilder(rgb = (colorProfiles[colorSelected][0], colorProfiles[colorSelected][1], colorProfiles[colorSelected][2])))
@@ -45,7 +45,7 @@ async def deskDim():
 
 def deskPowerFunc():
     print("desk")
-    loop.call_soon_threadsafe( deskPow())
+    asyncio.run( deskPow())
 
 def roomPowerFunc():
     print("room")
@@ -72,11 +72,18 @@ def changeColorOrDimFunc():
 
 
 
+while True:
+    if GPIO.input(desk_light_GPIO) == False:
+        deskPowerFunc()
 
-GPIO.add_event_detect(desk_light_GPIO, GPIO.FALLING, callback=lambda x: deskPowerFunc())
-loop = asyncio.get_event_loop()
-loop.run_forever()
-loop.close()
+    if GPIO.input(ball_light_GPIO) == False:
+        roomPowerFunc()
+    
+    if GPIO.input(color_white_toggle_GPIO) == False:
+        toggleColorFunc()
+
+    if GPIO.input(dimmer_GPIO) == False:
+        changeColorOrDimFunc()
 
 
 GPIO.cleanup()
