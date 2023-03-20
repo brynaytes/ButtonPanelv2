@@ -73,3 +73,8 @@ def changeColorOrDimFunc():
 
 
 GPIO.add_event_detect(desk_light_GPIO, GPIO.FALLING, callback=deskPowerFunc)
+
+try:
+    while True : pass
+except:
+    GPIO.cleanup()
