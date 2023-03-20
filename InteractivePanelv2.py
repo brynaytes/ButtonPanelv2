@@ -12,6 +12,7 @@ ball_light_GPIO = 27
 color_white_toggle_GPIO = 22
 dimmer_GPIO = 23
 
+loop
 
 GPIO.setwarnings(False)
 
@@ -72,9 +73,10 @@ def changeColorOrDimFunc():
 
 
 
-GPIO.add_event_detect(desk_light_GPIO, GPIO.FALLING, callback=deskPowerFunc)
+GPIO.add_event_detect(desk_light_GPIO, GPIO.FALLING, callback=lambda x: deskPowerFunc())
+loop = asyncio.get_event_loop()
+loop.run_forever()
+loop.close()
 
-try:
-    while True : pass
-except:
-    GPIO.cleanup()
+
+GPIO.cleanup()
