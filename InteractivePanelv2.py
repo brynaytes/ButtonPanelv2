@@ -32,7 +32,7 @@ colorProfiles = [[0,0,255], [0,255,0], [255,0,0]]
 brightness = 255
 
 async def deskPow():
-    await desk.lightSwitch()
+    loop.call_soon_threadsafe( desk.lightSwitch())
 
 async def deskColor():
     await  desk.turn_on(PilotBuilder(rgb = (colorProfiles[colorSelected][0], colorProfiles[colorSelected][1], colorProfiles[colorSelected][2])))
