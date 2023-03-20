@@ -45,7 +45,8 @@ async def deskDim():
 
 def deskPowerFunc():
     print("desk")
-    asyncio.run( deskPow())
+    asyncio.async( deskPow())
+    asyncio.get_event_loop().stop()
 
 def roomPowerFunc():
     print("room")
@@ -74,7 +75,8 @@ def changeColorOrDimFunc():
 
 while True:
     if GPIO.input(desk_light_GPIO) == False:
-        asyncio.run(deskPow())
+        loop = asyncio.get_event_loop()
+        loop.call_soon_threadsafe(deskPowerFunc)
 
     if GPIO.input(ball_light_GPIO) == False:
         roomPowerFunc()
