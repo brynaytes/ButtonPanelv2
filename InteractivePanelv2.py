@@ -45,7 +45,7 @@ async def deskDim():
 
 def deskPowerFunc():
     print("desk")
-   loop.call_soon_threadsafe( deskPow())
+    loop.call_soon_threadsafe( deskPow())
 
 def roomPowerFunc():
     print("room")
