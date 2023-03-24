@@ -40,6 +40,6 @@ try:
     loop.add_reader(desk_light_GPIO,deskPow )
     loop.run_forever()
     loop.close()
-except  : 
-    print("Error")
+except Exception as e : 
+    print("Error" ,e)
 GPIO.cleanup()
