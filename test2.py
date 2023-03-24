@@ -9,7 +9,7 @@ GPIO.setup(17, GPIO.IN)
 async def handle_gpio_event():
     # Your asynchronous function code here
     print("GPIO event detected!")
-    desk = wizlight("192.168.0.43")
+    desk = wizlight("192.168.0.41")
     await desk.lightSwitch()
 
 
