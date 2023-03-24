@@ -2,7 +2,9 @@ import asyncio
 import RPi.GPIO as GPIO
 from pywizlight.bulb import wizlight, PilotBuilder
 
-GPIO_PIN = 17  # Change this to the GPIO pin number you want to use
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.IN)
 
 async def handle_gpio_event():
     # Your asynchronous function code here
@@ -11,23 +13,15 @@ async def handle_gpio_event():
     await desk.lightSwitch()
 
 
+async def main():
+    while True:
+        # wait for a GPIO event to occur
+        await asyncio.wait_for(
+            asyncio.to_thread(GPIO.wait_for_edge, 17, GPIO.RISING),
+            None
+        )
+        # call the async event handler function
+        asyncio.create_task(handle_gpio_event())
 
-def main():
-    # Setup GPIO pin
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(GPIO_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-    # Create event loop and add GPIO event detection task
-    loop = asyncio.get_event_loop()
-    loop.add_reader(GPIO_PIN, handle_gpio_event)
-
-    # Start event loop
-    try:
-        loop.run_forever()
-    finally:
-        # Clean up GPIO and event loop
-        GPIO.cleanup()
-        loop.close()
-
-if __name__ == "__main__":
-    main()
+# start the event loop
+asyncio.run(main())
