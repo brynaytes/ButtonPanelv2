@@ -16,11 +16,11 @@ async def deskPow():
     await desk.lightSwitch()
 
 def deskPowerFunc():
-   if loop is None:
+    if loop is None:
         print(":(")
         return       # should not come to this
+        loop.call_soon_threadsafe(deskPow)
 
-    loop.call_soon_threadsafe(deskPow)
 
 try:
     GPIO.setwarnings(False)
