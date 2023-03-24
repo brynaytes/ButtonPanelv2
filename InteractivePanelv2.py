@@ -45,7 +45,7 @@ async def deskDim():
 
 def deskPowerFunc():
     print("desk")
-    asyncio.async( deskPow())
+    asyncio.run( deskPow())
     asyncio.get_event_loop().stop()
 
 def roomPowerFunc():
