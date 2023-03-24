@@ -27,7 +27,7 @@ try:
 
     GPIO.setmode(GPIO.BCM)  
     GPIO.setup(desk_light_GPIO, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.add_event_detect(desk_light_GPIO, GPIO.RISING, callback=lambda x: self.deskPowerFunc(), bouncetime=500)
+    GPIO.add_event_detect(desk_light_GPIO, GPIO.RISING, callback=lambda x: deskPowerFunc(), bouncetime=500)
 
     loop = asyncio.get_event_loop()
     loop.run_forever()
