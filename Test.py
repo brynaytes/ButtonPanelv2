@@ -12,15 +12,21 @@ loop = None
 
 desk = wizlight(desk_lightIP)
 
+
 async def deskPow():
+    print("deskPow")
     await desk.lightSwitch()
+
+def deskIntercept():
+    print("deskintercept")
+    asyncio.run(deskPow())
 
 def deskPowerFunc():
     print("fired power func")
     if loop is None:
         print(":(")
         return       # should not come to this
-    loop.call_soon_threadsafe(deskPow)
+    loop.call_soon_threadsafe( deskIntercept())
 
 
 try:
@@ -33,6 +39,6 @@ try:
     loop = asyncio.get_event_loop()
     loop.run_forever()
     loop.close()
-except : 
-    print("Error" , sys.exc_info()[0])
+except  : 
+    print("Error")
 GPIO.cleanup()
